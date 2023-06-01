@@ -1,5 +1,5 @@
 <?php
-if($_SESSION['id']){
+if(isset($_SESSION['id'])){
     echo("<script>location.href = '".BASE_URL."index.php';</script>");
 }
 ini_set('default_charset','UTF-8');

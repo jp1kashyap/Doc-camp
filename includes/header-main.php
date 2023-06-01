@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <?php
- require_once('config.php'); ?>
+ require_once('config.php');
+ if(!isset($_SESSION['id'])){
+    echo("<script>location.href = '".BASE_URL."signin.php';</script>");
+}
+ ?>
 <head>
     <meta charset='utf-8' />
     <meta http-equiv='X-UA-Compatible' content='IE=edge' />
