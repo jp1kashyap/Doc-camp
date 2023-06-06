@@ -19,7 +19,6 @@ if(isset($_POST['signin'])){
             $_SESSION['id']=$result['id'];
             $_SESSION['name']=$result['name'];
             $success=true;
-            echo("<script>setTimeout(()=>{location.href = '".BASE_URL."index.php';},1000)</script>");
         }
     } else {
         $errors = $validate->get_errors();
@@ -45,15 +44,15 @@ if(isset($_POST['signin'])){
             <input type="hidden" name="signin" value="signin"/>
             <button type="submit" class="btn btn-primary w-full">SIGN IN</button>
             <?php if(isset($errors['message'])) { ?>
-                <div class="flex items-center p-3.5 rounded text-danger bg-danger-light dark:bg-danger-dark-light">
-                        <span class="ltr:pr-2 rtl:pl-2"><strong class="ltr:mr-1 rtl:ml-1">Oops!</strong><?=$errors['message'][0]?></span>
-                    </div>
+                <script>setTimeout(()=>{
+                    loginFailed('<?=$errors['message'][0]?>');
+                },500) </script>
             <?php } ?>
             <?php if($success) { ?>
-                <div class="flex items-center p-3.5 rounded text-success bg-success-light dark:bg-success-dark-light">
-                        <span class="ltr:pr-2 rtl:pl-2"><strong class="ltr:mr-1 rtl:ml-1">Success!</strong>MR Logged In Successful.</span>
-                    </div>
-                <?php } ?>
+                <script>setTimeout(()=>{
+                    loginSuccess();
+                },500) </script>
+            <?php } ?>
             <?php if($loggedout) { ?>
                 <div class="flex items-center p-3.5 rounded text-info bg-info-light dark:bg-info-dark-light">
                         <span class="ltr:pr-2 rtl:pl-2"><strong class="ltr:mr-1 rtl:ml-1">Logged Out!</strong>Please login to continue.</span>
@@ -63,7 +62,27 @@ if(isset($_POST['signin'])){
         <div class="relative my-7 h-5 text-center before:w-full before:h-[1px] before:absolute before:inset-0 before:m-auto before:bg-[#ebedf2] dark:before:bg-[#253b5c]">
             <div class="font-bold text-white-dark bg-white dark:bg-[#0e1726] px-2 relative z-[1] inline-block"><span></span></div>
         </div>
-        <p class="text-center">Dont't have an account ? <a href="<?=BASE_URL?>signup.php" class="text-primary font-bold hover:underline">Sign Up</a></p>
+        <p class="text-center">Are you Admin ? <a href="<?=BASE_URL?>admin-login.php" class="text-primary font-bold hover:underline">Sign In Here</a></p>
     </div>
 </div>
+<script>
+     function loginSuccess() {
+        new window.swal({
+            icon: 'success',
+            title: 'Success!',
+            text: 'MR Logged In Successful.',
+            padding: '2em',
+        }).then((result)=>{
+            window.location.href='<?=BASE_URL?>index.php';
+        });
+    }
+    function loginFailed(msg) {
+        new window.swal({
+            icon: 'error',
+            title: 'Oops!',
+            text: msg,
+            padding: '2em',
+        });
+    }
+</script>
 <?php include 'includes/footer-main-auth.php'; ?>

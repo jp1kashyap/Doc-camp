@@ -45,15 +45,15 @@ if(isset($_POST['signin'])){
             <input type="hidden" name="signin" value="signin"/>
             <button type="submit" class="btn btn-primary w-full">SIGN IN</button>
             <?php if(isset($errors['message'])) { ?>
-                <div class="flex items-center p-3.5 rounded text-danger bg-danger-light dark:bg-danger-dark-light">
-                        <span class="ltr:pr-2 rtl:pl-2"><strong class="ltr:mr-1 rtl:ml-1">Oops!</strong><?=$errors['message'][0]?></span>
-                    </div>
+                <script>setTimeout(()=>{
+                    loginFailed('<?=$errors['message'][0]?>');
+                },500) </script>
             <?php } ?>
             <?php if($success) { ?>
-                <div class="flex items-center p-3.5 rounded text-success bg-success-light dark:bg-success-dark-light">
-                        <span class="ltr:pr-2 rtl:pl-2"><strong class="ltr:mr-1 rtl:ml-1">Success!</strong>Admin Logged In Successful.</span>
-                    </div>
-                <?php } ?>
+                <script>setTimeout(()=>{
+                    loginSuccess();
+                },500) </script>
+            <?php } ?>
             <?php if($loggedout) { ?>
                 <div class="flex items-center p-3.5 rounded text-info bg-info-light dark:bg-info-dark-light">
                         <span class="ltr:pr-2 rtl:pl-2"><strong class="ltr:mr-1 rtl:ml-1">Logged Out!</strong>Please login to continue.</span>
@@ -62,4 +62,24 @@ if(isset($_POST['signin'])){
         </form>
     </div>
 </div>
+<script>
+     function loginSuccess() {
+        new window.swal({
+            icon: 'success',
+            title: 'Success!',
+            text: 'Admin Logged In Successful.',
+            padding: '2em',
+        }).then((result)=>{
+            window.location.href='<?=BASE_URL?>index.php';
+        });
+    }
+    function loginFailed(msg) {
+        new window.swal({
+            icon: 'error',
+            title: 'Oops!',
+            text: msg,
+            padding: '2em',
+        });
+    }
+</script>
 <?php include 'includes/footer-main-auth.php'; ?>
