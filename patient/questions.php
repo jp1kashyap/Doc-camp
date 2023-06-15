@@ -76,7 +76,7 @@ if (isset($_POST['add'])) {
         new window.swal({
             icon: 'success',
             title: 'Completed|',
-            text: 'You have completed all questions and your score is <?=$totalScore?>/19',
+            text: 'You have completed all questions and your score is <?=$totalScore?>/17',
             padding: '2em',
         }).then((result)=>{
             window.location.href='<?=BASE_URL?>patient/list.php';

@@ -1,13 +1,16 @@
 <?php include '../includes/header-main.php'; 
 include '../classes/Patient.php';
+include '../classes/Camp.php';
 include '../validation/DataValidator.php';
 $patient=new Patient();
+$camp = new Camp();
 $validate = new Data_Validator();
 $errors=[];
 $success=false;
 $lastInsertedId = null;
 if(isset($_POST['add'])){
     $validate->set('name',$_POST['name'])->is_required()->min_length(3);
+    $validate->set('camp_id',$_POST['camp_id'])->is_required();
     $validate->set('age',$_POST['age'])->is_required()->min_length(1);		
     $validate->set('sex',$_POST['sex'])->is_required()->min_length(3);		
     $validate->set('address',$_POST['address'])->is_required()->min_length(3);		
@@ -22,6 +25,8 @@ if(isset($_POST['add'])){
         $errors = $validate->get_errors();
     }
 }
+$camps = $camp->list();
+print_r($camps);
 ?>
 <link rel="stylesheet" href="<?=BASE_URL?>assets/css/flatpickr.min.css">
 <script src="<?=BASE_URL?>assets/js/flatpickr.js"></script>
@@ -44,6 +49,16 @@ if(isset($_POST['add'])){
                 </div>
                 <div class="mb-8">
                     <form method="post" action="">
+                    <div>
+                        <label for="camp">Camp</label>
+                        <select name="camp_id" class="form-input">
+                            <option value="">--Select--</option>
+                            <?php foreach ($camps as $camp) { ?>
+                            <option value="<?=$camp[0]?>" <?= isset($_POST['camp_id']) && !$success && $_POST['camp_id'] == $camp[0] ? 'selected' : '' ?>><?=$camp[1]?></option>
+                            <?php } ?>
+                        </select>
+                        <?php if(isset($errors['sex'])){?><label class="text-danger"><?=$errors['sex'][0]?></label><?php } ?>
+                    </div>
                     <div>
                         <label for="name">Patient Name</label>
                         <input id="name" name="name" type="text" placeholder="Enter Patient Name " value="<?=isset($_POST['name']) && !$success?$_POST['name']:''?>" class="form-input" />

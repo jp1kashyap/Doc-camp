@@ -10,9 +10,9 @@ class Patient extends DbConfig
     public function add()
 	{	
 		extract($_POST);
-		$query="INSERT INTO patients (name,age,sex,address,disease,other_disease) VALUES(?,?,?,?,?,?)";
+		$query="INSERT INTO patients (name,age,sex,address,disease,other_disease,camp_id) VALUES(?,?,?,?,?,?,?)";
 		$stmt = $this->connection->prepare($query);
-		$stmt->bind_param("sdssss",$name,$age,$sex,$address,$disease,$other_disease);
+		$stmt->bind_param("sdssssd",$name,$age,$sex,$address,$disease,$other_disease,$camp_id);
 		$stmt->execute();
 		return $stmt->insert_id;
 	}
