@@ -1,7 +1,9 @@
 <?php include '../includes/header-main.php'; 
 include '../classes/Patient.php';
+include '../classes/Camp.php';
 include '../validation/DataValidator.php';
 $patient=new Patient();
+$camp = new Camp();
 $validate = new Data_Validator();
 $errors=[];
 $success=false;
@@ -22,13 +24,13 @@ if(isset($_POST['update'])){
     if($validate->validate()){
         if($result=$patient->update()){
             $success=true;
-            echo("<script>setTimeout(()=>{location.href = '".BASE_URL."patient/list.php';},1000)</script>");
+            echo("<script>window.location.href = '".BASE_URL."patient/questions.php?page=1&patient=".$_REQUEST['id']."';</script>");
         }
     } else {
         $errors = $validate->get_errors();
-        print_r($errors);
     }
 }
+$camps = $camp->list();
 ?>
 <link rel="stylesheet" href="<?=BASE_URL?>assets/css/flatpickr.min.css">
 <script src="<?=BASE_URL?>assets/js/flatpickr.js"></script>
@@ -51,6 +53,16 @@ if(isset($_POST['update'])){
                 </div>
                 <div class="mb-8">
                     <form method="post" action="">
+                    <div>
+                        <label for="camp">Camp</label>
+                        <select name="camp_id" class="form-input">
+                            <option value="">--Select--</option>
+                            <?php foreach ($camps as $camp) { ?>
+                            <option value="<?=$camp[0]?>" <?= isset($data['camp_id']) && $data['camp_id'] == $camp[0] ? 'selected' : '' ?>><?=$camp[1]?></option>
+                            <?php } ?>
+                        </select>
+                        <?php if(isset($errors['sex'])){?><label class="text-danger"><?=$errors['sex'][0]?></label><?php } ?>
+                    </div>
                     <div>
                         <label for="name">Patient Name</label>
                         <input id="name" name="name" type="text" placeholder="Enter Patient Name " value="<?=isset($data['name'])?$data['name']:''?>" class="form-input" />
@@ -106,7 +118,7 @@ if(isset($_POST['update'])){
                     </div>
                     <input type="hidden" name="update" value="update" />
                     <input type="hidden" name="id" value="<?=$_REQUEST['id']?>" />
-                    <button type="submit" class="btn btn-primary mt-6">Submit</button>
+                    <button type="submit" class="btn btn-primary mt-6">Update Patient Details</button>
                     </form>
                     <?php if($success) { ?>
                         <div class="flex items-center p-3.5 rounded text-success bg-success-light dark:bg-success-dark-light">

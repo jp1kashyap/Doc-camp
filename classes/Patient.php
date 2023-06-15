@@ -19,13 +19,13 @@ class Patient extends DbConfig
 
     public function list()
 	{	
-		$query="SELECT id,name,age,sex,address,disease,other_disease FROM patients ORDER BY id DESC";
+		$query="SELECT p.id as id,p.name as name,p.age as age,p.sex as sex,p.address as address,p.disease as disease,p.other_disease as other_disease,c.hospital as hospital FROM patients as p join camps as c on p.camp_id=c.id ORDER BY id DESC";
 		$stmt = $this->connection->prepare($query);
         $stmt->execute();
         $result = $stmt->get_result();
         $rows=array();
         while ($row = $result->fetch_assoc()) {
-            $rows[]=array($row['id'],$row['name'],$row['age'],$row['sex'],$row['address'],$row['disease'],$row['other_disease'],$row['id']);
+            $rows[]=array($row['id'],$row['hospital'],$row['name'],$row['age'],$row['sex'],$row['address'],$row['disease'],$row['other_disease'],$row['id']);
         }
 		return $rows;
 	}
@@ -38,14 +38,14 @@ class Patient extends DbConfig
 	}
 
 	public function edit($id){
-		$query = "SELECT id,name,age,sex,address,disease,other_disease FROM patients WHERE id=?";
+		$query = "SELECT id,name,age,sex,address,disease,other_disease,camp_id FROM patients WHERE id=?";
 		$stmt = $this->connection->prepare($query);
 		$stmt->bind_param('d', $id);
 		$stmt->execute();
-		$stmt->bind_result($id,$name,$age,$sex,$address,$disease,$other_disease);
+		$stmt->bind_result($id,$name,$age,$sex,$address,$disease,$other_disease,$camp_id);
 		$json = array();
 		if($stmt->fetch()) {
-			$json = array('id'=>$id, 'name'=>$name,'age'=>$age,'sex'=>$sex,'address'=>$address,'disease'=>$disease,'other_disease'=>$other_disease);
+			$json = array('id'=>$id, 'name'=>$name,'age'=>$age,'sex'=>$sex,'address'=>$address,'disease'=>$disease,'other_disease'=>$other_disease,'camp_id'=>$camp_id);
 		}else{
 			$json = array('error'=>'no record found');
 		}

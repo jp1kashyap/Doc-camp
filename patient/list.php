@@ -78,7 +78,7 @@ if(isset($_REQUEST['isDelete'])){
             init() {
                 this.datatable = new simpleDatatables.DataTable('#myTable', {
                     data: {
-                        headings: ['ID','Name','Age','Sex','Address','Disease','Other Disease','Action'],
+                        headings: ['ID','Hospital','Name','Age','Sex','Address','Disease','Other Disease','Action'],
                         data: <?=json_encode($list)?>
                     },
                     perPage: 10,
@@ -88,7 +88,7 @@ if(isset($_REQUEST['isDelete'])){
                             sort: 'asc',
                         },
                         {
-                            select: 7,
+                            select: 8,
                             sortable:false,
                             render: (data, cell, row) => {
                                 console.log(data);

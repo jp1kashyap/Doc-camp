@@ -12,13 +12,20 @@ $totalCalculated = false;
 if(!$patientId){
     echo("<script>setTimeout(()=>{location.href = '".BASE_URL."patient/list.php';},200)</script>");
 }
+$oldAnswer = $question->edit($patientId, $page);
 if (isset($_POST['add'])) {
     $validate->set('question',$_POST['question'])->is_required();
     $validate->set('answer',$_POST['answer'])->is_required();
     if($validate->validate()){
         $_POST['patient'] = $patientId;
         $_POST['score'] = 1;
-        $lastInsertedId=$question->add();
+        $_POST['question_id'] = $page;
+        if (isset($oldAnswer['answer'])) {
+            $question->update();
+            $lastInsertedId = 1;
+        }else{
+            $lastInsertedId = $question->add();
+        }
         if($lastInsertedId){
             $success = true;
             if($page=='17'){

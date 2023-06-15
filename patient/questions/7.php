@@ -4,8 +4,8 @@
     <input type="hidden" name="question" value="5-c"/>
     <select id="q-7" name="answer" class="form-input">
         <option value="">-- Select --</option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
+        <option value="Yes" <?=isset($oldAnswer['answer']) && $oldAnswer['answer']=='Yes'?"selected":""?>>Yes</option>
+        <option value="No" <?=isset($oldAnswer['answer']) && $oldAnswer['answer']=='No'?"selected":""?>>No</option>
     </select>
     <?php if(isset($errors['q-7'])){?><label class="text-danger"><?=$errors['q-7'][0]?></label><?php } ?>
 </div>

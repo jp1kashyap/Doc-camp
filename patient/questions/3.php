@@ -7,7 +7,7 @@
 <script>
     document.addEventListener("alpine:init", () => {
         Alpine.data("form", () => ({
-            date3: '12:00',
+            date3: '<?=isset($oldAnswer['answer'])?$oldAnswer['answer']:"12:00"?>',
             init() {
                 flatpickr(document.getElementById('q-3'), {
                     defaultDate: this.date3,

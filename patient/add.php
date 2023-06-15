@@ -26,7 +26,6 @@ if(isset($_POST['add'])){
     }
 }
 $camps = $camp->list();
-print_r($camps);
 ?>
 <link rel="stylesheet" href="<?=BASE_URL?>assets/css/flatpickr.min.css">
 <script src="<?=BASE_URL?>assets/js/flatpickr.js"></script>
@@ -113,7 +112,7 @@ print_r($camps);
                         <?php if(isset($errors['other_disease'])){?><label class="text-danger"><?=$errors['other_disease'][0]?></label><?php } ?>
                     </div>
                     <input type="hidden" name="add" value="add" />
-                        <button type="submit" class="btn btn-primary mt-6">Submit</button>
+                        <button type="submit" class="btn btn-primary mt-6">Add Patient Details</button>
                     </form>
                     <?php if($success) { ?>
                         <script>setTimeout(()=>{
