@@ -13,7 +13,8 @@ class Patient extends DbConfig
 		$query="INSERT INTO patients (name,age,sex,address,disease,other_disease) VALUES(?,?,?,?,?,?)";
 		$stmt = $this->connection->prepare($query);
 		$stmt->bind_param("sdssss",$name,$age,$sex,$address,$disease,$other_disease);
-		return $stmt->execute();
+		$stmt->execute();
+		return $stmt->insert_id;
 	}
 
     public function list()

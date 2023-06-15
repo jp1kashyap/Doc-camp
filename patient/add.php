@@ -5,6 +5,7 @@ $patient=new Patient();
 $validate = new Data_Validator();
 $errors=[];
 $success=false;
+$lastInsertedId = null;
 if(isset($_POST['add'])){
     $validate->set('name',$_POST['name'])->is_required()->min_length(3);
     $validate->set('age',$_POST['age'])->is_required()->min_length(1);		
@@ -13,7 +14,8 @@ if(isset($_POST['add'])){
     $validate->set('disease',isset($_POST['disease'])?$_POST['disease']:'')->is_required()->min_length(2);		
     //$validate->set('other_disease',$_POST['other_disease'])->is_required()->min_length(3);				
     if($validate->validate()){
-        if($result=$patient->add()){
+        $lastInsertedId=$patient->add();
+        if($lastInsertedId){
             $success=true;
         }
     } else {
@@ -99,9 +101,9 @@ if(isset($_POST['add'])){
                         <button type="submit" class="btn btn-primary mt-6">Submit</button>
                     </form>
                     <?php if($success) { ?>
-                        <div class="flex items-center p-3.5 rounded text-success bg-success-light dark:bg-success-dark-light">
-                                <span class="ltr:pr-2 rtl:pl-2"><strong class="ltr:mr-1 rtl:ml-1">Success!</strong>Patient Added Successfully.</span>
-                            </div>
+                        <script>setTimeout(()=>{
+                            addSuccess();
+                        },500) </script>
                     <?php } ?>
                 </div>
             </div>
@@ -109,6 +111,16 @@ if(isset($_POST['add'])){
     </div>
 </div>
 <script>
+    function addSuccess() {
+        new window.swal({
+            icon: 'success',
+            title: 'Success!',
+            text: `Patient Added Successfully. Let's Answer some questions...`,
+            padding: '2em',
+        }).then((result)=>{
+            window.location.href='<?=BASE_URL?>patient/questions.php?page=1&patient=<?=$lastInsertedId?>';
+        });
+    }
     document.addEventListener("alpine:init", () => {
         Alpine.data("form", () => ({
             date: new Date().toISOString().slice(0, 10),
