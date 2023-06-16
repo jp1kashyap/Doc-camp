@@ -4,7 +4,7 @@
             <div class="horizontal-logo flex lg:hidden justify-between items-center ltr:mr-2 rtl:ml-2">
                 <a href="/" class="main-logo flex items-center shrink-0">
                     <img class="w-8 ltr:-ml-1 rtl:-mr-1 inline" src="<?=BASE_URL?>assets/images/logo.svg" alt="image" />
-                    <span class="text-2xl ltr:ml-1.5 rtl:mr-1.5  font-semibold  align-middle hidden md:inline dark:text-white-light transition-all duration-300">VRISTO</span>
+                    <span class="text-2xl ltr:ml-1.5 rtl:mr-1.5  font-semibold  align-middle hidden md:inline dark:text-white-light transition-all duration-300">PULSESSDCAMP</span>
                 </a>
 
                 <a href="javascript:;" class="collapse-icon flex-none dark:text-[#d0d2d6] hover:text-primary dark:hover:text-primary flex lg:hidden ltr:ml-2 rtl:mr-2 p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:bg-white-light/90 dark:hover:bg-dark/60" @click="$store.app.toggleSidebar()">
@@ -15,7 +15,7 @@
                     </svg>
                 </a>
             </div>
-            <div class="ltr:mr-2 rtl:ml-2 hidden sm:block">
+            <!-- <div class="ltr:mr-2 rtl:ml-2 hidden sm:block">
                 <ul class="flex items-center space-x-2 rtl:space-x-reverse dark:text-[#d0d2d6]">
                     <li>
                         <a href="/apps/calendar.php" class="block p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60">
@@ -44,10 +44,10 @@
                         </a>
                     </li>
                 </ul>
-            </div>
+            </div> -->
             <div x-data="header" class="sm:flex-1 ltr:sm:ml-0 ltr:ml-auto sm:rtl:mr-0 rtl:mr-auto flex items-center space-x-1.5 lg:space-x-2 rtl:space-x-reverse dark:text-[#d0d2d6]">
                 <div class="sm:ltr:mr-auto sm:rtl:ml-auto" x-data="{ search: false }" @click.outside="search = false">
-                    <form class="sm:relative absolute inset-x-0 sm:top-0 top-1/2 sm:translate-y-0 -translate-y-1/2 sm:mx-0 mx-4 z-10 sm:block hidden" :class="{'!block' : search}" @submit.prevent="search = false">
+                    <!-- <form class="sm:relative absolute inset-x-0 sm:top-0 top-1/2 sm:translate-y-0 -translate-y-1/2 sm:mx-0 mx-4 z-10 sm:block hidden" :class="{'!block' : search}" @submit.prevent="search = false">
                         <div class="relative">
                             <input type="text" class="form-input ltr:pl-9 rtl:pr-9 ltr:sm:pr-4 rtl:sm:pl-4 ltr:pr-9 rtl:pl-9 peer sm:bg-transparent bg-gray-100 placeholder:tracking-widest" placeholder="Search..." />
                             <button type="button" class="absolute w-9 h-9 inset-0 ltr:right-auto rtl:left-auto appearance-none peer-focus:text-primary">
@@ -70,7 +70,7 @@
                             <circle cx="11.5" cy="11.5" r="9.5" stroke="currentColor" stroke-width="1.5" opacity="0.5" />
                             <path d="M18.5 18.5L22 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
                         </svg>
-                    </button>
+                    </button> -->
                 </div>
                 <div>
                     <a href="javascript:;" x-cloak x-show="$store.app.theme === 'light'" href="javascript:;" class="flex items-center p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60" @click="$store.app.toggleTheme('dark')">
@@ -100,7 +100,7 @@
                     </a>
                 </div>
 
-                <div class="dropdown shrink-0" x-data="dropdown" @click.outside="open = false">
+                <!-- <div class="dropdown shrink-0" x-data="dropdown" @click.outside="open = false">
                     <a href="javascript:;" class="block p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60" @click="toggle">
                         <img :src="`<?=BASE_URL?>assets/images/flags/${$store.app.locale.toUpperCase()}.svg`" alt="image" class="w-5 h-5 object-cover rounded-full" />
                     </a>
@@ -114,9 +114,9 @@
                             </li>
                         </template>
                     </ul>
-                </div>
+                </div> -->
 
-                <div class="dropdown" x-data="dropdown" @click.outside="open = false">
+                <!-- <div class="dropdown" x-data="dropdown" @click.outside="open = false">
                     <a href="javascript:;" class="block p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60" @click="toggle">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M22 10C22.0185 10.7271 22 11.0542 22 12C22 15.7712 22 17.6569 20.8284 18.8284C19.6569 20 17.7712 20 14 20H10C6.22876 20 4.34315 20 3.17157 18.8284C2 17.6569 2 15.7712 2 12C2 8.22876 2 6.34315 3.17157 5.17157C4.34315 4 6.22876 4 10 4H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
@@ -174,7 +174,7 @@
                             </li>
                         </template>
                     </ul>
-                </div>
+                </div> -->
                 <div class="dropdown" x-data="dropdown" @click.outside="open = false">
                     <a href="javascript:;" class="relative block p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60" @click="toggle">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -27,6 +27,10 @@
             position: relative;
             left: 25%;
         }
+        .text-2xl {
+            font-size: 1.4rem;
+            line-height: 2rem;
+        }
     </style>
 </head>
 
