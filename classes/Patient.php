@@ -30,6 +30,19 @@ class Patient extends DbConfig
 		return $rows;
 	}
 
+	public function listForDashboard()
+	{	
+		$query="SELECT p.id as id,p.name as name,p.age as age,p.sex as sex,p.address as address,p.disease as disease,p.other_disease as other_disease,c.hospital as hospital FROM patients as p join camps as c on p.camp_id=c.id ORDER BY id DESC LIMIT 10";
+		$stmt = $this->connection->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $rows=array();
+        while ($row = $result->fetch_assoc()) {
+            $rows[]=$row;
+        }
+		return $rows;
+	}
+
 	public function delete($id){
 		$query = "DELETE FROM patients WHERE id=?";
 		$stmt = $this->connection->prepare($query);

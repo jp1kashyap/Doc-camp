@@ -28,6 +28,18 @@ class Camp extends DbConfig
         }
 		return $rows;
 	}
+	public function listForDashboard()
+	{	
+		$query="SELECT id,hospital,location,doctor,doctor_code,speciality,date FROM camps ORDER BY id DESC LIMIT 10";
+		$stmt = $this->connection->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $rows=array();
+        while ($row = $result->fetch_assoc()) {
+            $rows[]=$row;
+        }
+		return $rows;
+	}
 
 	public function delete($id){
 		$query = "DELETE FROM camps WHERE id=?";
