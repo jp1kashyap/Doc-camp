@@ -18,7 +18,6 @@ if (isset($_POST['add'])) {
     $validate->set('answer',$_POST['answer'])->is_required();
     if($validate->validate()){
         $_POST['patient'] = $patientId;
-        $_POST['score'] = 1;
         $_POST['question_id'] = $page;
         if (isset($oldAnswer['answer'])) {
             $question->update();
