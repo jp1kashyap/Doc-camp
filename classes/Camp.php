@@ -73,4 +73,16 @@ class Camp extends DbConfig
 		$stmt->bind_param("ssssssd",$hospital,$location,$doctor,$doctor_code,$speciality,$date,$id);
 		return $stmt->execute();
 	}
+
+	public function doctorList(){
+		$query="SELECT c.id,c.doctor,c.doctor_code,c.hospital,c.location,c.date,count(p.id) as totalPatient  FROM camps as c join patients as p on p.camp_id=c.id group by c.id ORDER BY c.id DESC";
+		$stmt = $this->connection->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $rows=array();
+        while ($row = $result->fetch_assoc()) {
+            $rows[]=array($row['id'],$row['doctor'],$row['doctor_code'],$row['hospital'],$row['location'],$row['date'],$row['totalPatient']);
+        }
+		return $rows;
+	}
 }
