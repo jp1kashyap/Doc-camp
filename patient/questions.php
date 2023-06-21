@@ -81,11 +81,11 @@ if (isset($_POST['add'])) {
     function totalScore() {
         new window.swal({
             icon: 'success',
-            title: 'Completed|',
-            text: 'You have completed all questions and your score is <?=$totalScore?>/17',
+            title: 'Completed!',
+            text: `You have completed all questions, let's check your result`,
             padding: '2em',
         }).then((result)=>{
-            window.location.href='<?=BASE_URL?>patient/list.php';
+            window.location.href='<?=BASE_URL?>patient/score.php?patient=<?=$patientId?>';
         });
     }
     </script>

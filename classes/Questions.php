@@ -44,17 +44,17 @@ class Questions extends DbConfig
 	}
 
     public function calculateScore($patientId){
-        $query = "SELECT sum(score) as totalScore FROM questions WHERE patient=? group by patient";
+        $query = "SELECT patient,question,answer,score FROM questions WHERE patient=?";
 		$stmt = $this->connection->prepare($query);
 		$stmt->bind_param('d', $patientId);
 		$stmt->execute();
-		$stmt->bind_result($totalScore);
-		$total=0;
-		if($stmt->fetch()) {
-            $total = $totalScore;
-		}
+		$result = $stmt->get_result();
+		$rows=array();
+        while ($row = $result->fetch_assoc()) {
+            $rows[]=$row;
+        }
 		/* close statement */
 		$stmt->close();
-		return $total;
+		return $rows;
     }
 }
