@@ -32,14 +32,14 @@ class Patient extends DbConfig
 
 	public function doctorPatients($camp_id)
 	{	
-		$query="SELECT p.name as name,c.hospital as hospital,p.age as age,p.sex as sex,p.created_at as date FROM patients as p join camps as c on p.camp_id=c.id where p.camp_id=? ORDER BY p.id DESC";
+		$query="SELECT p.name as name,c.hospital as hospital,p.age as age,p.sex as sex,p.created_at as date,p.psqi_score as psqi_score,p.psqi_result as psqi_result FROM patients as p join camps as c on p.camp_id=c.id where p.camp_id=? ORDER BY p.id DESC";
 		$stmt = $this->connection->prepare($query);
 		$stmt->bind_param('s', $camp_id);
         $stmt->execute();
         $result = $stmt->get_result();
         $rows=array();
         while ($row = $result->fetch_assoc()) {
-            $rows[]=array($row['name'],$row['hospital'],$row['age'],$row['sex'],$row['date'],'','');
+            $rows[]=array($row['name'],$row['hospital'],$row['age'],$row['sex'],$row['date'],$row['psqi_score'],$row['psqi_result']);
         }
 		return $rows;
 	}
@@ -87,6 +87,13 @@ class Patient extends DbConfig
 		$query="UPDATE patients SET name=?,age=?,sex=?,address=?,disease=?,other_disease=? WHERE id = ?";
 		$stmt = $this->connection->prepare($query);
 		$stmt->bind_param("sdssssd",$name,$age,$sex,$address,$disease,$other_disease,$id);
+		return $stmt->execute();
+	}
+
+	public function updateScore($id,$score,$result){
+		$query="UPDATE patients SET psqi_score=?,psqi_result=? WHERE id = ?";
+		$stmt = $this->connection->prepare($query);
+		$stmt->bind_param("ssd",$score,$result,$id);
 		return $stmt->execute();
 	}
 }
