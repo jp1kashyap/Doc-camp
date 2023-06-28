@@ -245,8 +245,8 @@ $patient->updateScore($patientId, $psqiScore, $psqiResult);
                         </tr>
                         <tr>
                             <td></td>
-                            <td colspan="2">PSQi Score <strong><?=$psqiScore?></strong></td>
-                            <td colspan="2">psqi result <strong><?=$psqiResult?></strong></td>
+                            <td colspan="2">PSQI Score <strong><?=$psqiScore?></strong></td>
+                            <td colspan="2">PSQI result <strong><?=$psqiResult?></strong></td>
                         </tr>
                     </table>
                 </div>
