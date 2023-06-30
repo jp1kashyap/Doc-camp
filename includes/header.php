@@ -175,7 +175,7 @@
                         </template>
                     </ul>
                 </div> -->
-                <div class="dropdown" x-data="dropdown" @click.outside="open = false">
+                <!-- <div class="dropdown" x-data="dropdown" @click.outside="open = false">
                     <a href="javascript:;" class="relative block p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60" @click="toggle">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M19.0001 9.7041V9C19.0001 5.13401 15.8661 2 12.0001 2C8.13407 2 5.00006 5.13401 5.00006 9V9.7041C5.00006 10.5491 4.74995 11.3752 4.28123 12.0783L3.13263 13.8012C2.08349 15.3749 2.88442 17.5139 4.70913 18.0116C9.48258 19.3134 14.5175 19.3134 19.291 18.0116C21.1157 17.5139 21.9166 15.3749 20.8675 13.8012L19.7189 12.0783C19.2502 11.3752 19.0001 10.5491 19.0001 9.7041Z" stroke="currentColor" stroke-width="1.5" />
@@ -243,7 +243,7 @@
                             </li>
                         </template>
                     </ul>
-                </div>
+                </div> -->
                 <div class="dropdown flex-shrink-0" x-data="dropdown" @click.outside="open = false">
                     <a href="javascript:;" class="relative group" @click="toggle()">
                         <span><img class="w-9 h-9 rounded-full object-cover saturate-50 group-hover:saturate-100" src="<?=BASE_URL?>assets/images/user-profile.jpeg" alt="image" /></span>
