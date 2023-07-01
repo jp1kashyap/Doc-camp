@@ -1,6 +1,5 @@
 <div class="mb-8">
-    <h5>Q.No. 5- During the past month, how often have you had trouble sleeping because you</h5>
-    <label for="q-10">f. Feel too cold</label>
+<h5>Q5f) During the past month, how often have you had trouble sleeping because you <br/>feel too cold?</h5>
     <input type="hidden" name="question" value="5-f"/>
     <input type="hidden" name="score" value="<?=isset($oldAnswer['score'])?$oldAnswer['score']:"1"?>"/>
     <select id="q-10" name="answer" class="form-input" onchange="getScore(this)">

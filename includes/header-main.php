@@ -23,10 +23,13 @@
     <script defer src="<?=BASE_URL?>assets/js/tippy-bundle.umd.min.js"></script>
     <script defer src="<?=BASE_URL?>assets/js/sweetalert.min.js"></script>
     <style>
-        .center-form{
+        @media only screen and (min-width: 1025px) {
+            .center-form{
             position: relative;
             left: 25%;
         }
+    } 
+        
         .text-2xl {
             font-size: 1.4rem;
             line-height: 2rem;

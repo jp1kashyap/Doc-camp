@@ -1,5 +1,5 @@
 <div class="mb-8">
-    <label for="q-4">Q.No. 4- How many hours of actual sleep do you get at night?</label>
+    <label for="q-4">Q4) How many hours of actual sleep do you get at night?</label>
     <input type="hidden" name="question" value="4"/>
     <input type="hidden" name="score" value="<?=isset($oldAnswer['score'])?$oldAnswer['score']:"1"?>"/>
     <select id="q-4" name="answer" class="form-input" onchange="getScore(this)">

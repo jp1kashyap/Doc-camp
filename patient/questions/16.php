@@ -1,5 +1,5 @@
 <div class="mb-8">
-    <label for="q-16">Q.No. 8- During the past month how much of a problem has it been for you to keep up enthusiasm to get things done?</label>
+    <label for="q-16">Q8) During the past month how much of a problem has it been for you to keep up enthusiasm to get things done?</label>
     <input type="hidden" name="question" value="8"/>
     <input type="hidden" name="score" value="<?=isset($oldAnswer['score'])?$oldAnswer['score']:"1"?>"/>
     <select id="q-16" name="answer" class="form-input" onchange="getScore(this)">

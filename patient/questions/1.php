@@ -1,5 +1,5 @@
 <div class="mb-8" x-data="form">
-    <label for="q-1">Q.No. 1- When have you usually gone to bed?</label>
+    <label for="q-1">Q1) When have you usually gone to bed?</label>
     <input type="hidden" name="question" value="1"/>
     <input type="hidden" name="score" value="<?=isset($oldAnswer['score'])?$oldAnswer['score']:"1"?>"/>
     <input id="q-1" name="answer" x-model="date2" type="text" placeholder="Select Time " value="" class="form-input" />

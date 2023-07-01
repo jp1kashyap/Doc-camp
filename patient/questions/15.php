@@ -1,5 +1,5 @@
 <div class="mb-8">
-    <label for="q-15">Q.No. 7- During the past month how often have you had trouble staying awake while driving, eating meals, or engaging in social activity?</label>
+    <label for="q-15">Q7) During the past month how often have you had trouble staying awake while driving, eating meals, or engaging in social activity?</label>
     <input type="hidden" name="question" value="7"/>
     <input type="hidden" name="score" value="<?=isset($oldAnswer['score'])?$oldAnswer['score']:"1"?>"/>
     <select id="q-15" name="answer" class="form-input" onchange="getScore(this)">

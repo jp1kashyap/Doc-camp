@@ -98,6 +98,7 @@ $patient->updateScore($patientId, $psqiScore, $psqiResult);
 <style>
     table.table-bordered tbody tr td, table.table-bordered thead tr th{
         border-color: #131313 !important;
+        width: auto;
     }
 </style>
 <script src="<?=BASE_URL?>assets/js/flatpickr.js"></script>
@@ -119,9 +120,10 @@ $patient->updateScore($patientId, $psqiScore, $psqiResult);
                     <h1 style="font-size:24px;font-weight:700;" class="">The Pittsburgh Sleep Quality Index (PSQI)</h2>
                     <hr style="margin-top:20px"/>
                 </div>
-                <div class="mb-12" style="margin-top:20px">
+                <div class="mb-12" style="margin-top:20px;overflow-x:auto;">
                     <p>Instructions: The following questions relate to your usual sleep habits during the past month only. Your answers should indicate the</p>
-                    <table class=" table-bordered" cellspacing="0" rules="all" border="1">
+                    <table class="table-bordered" >
+                        <tbody>
                         <tr>
                             <td>1. When have you usually gone to bed?</td>
                             <td colspan="4"><?=isset($questions[0])?$questions[0]['answer']:""?></td>
@@ -248,7 +250,13 @@ $patient->updateScore($patientId, $psqiScore, $psqiResult);
                             <td colspan="2">PSQI Score <strong><?=$psqiScore?></strong></td>
                             <td colspan="2">PSQI result <strong><?=$psqiResult?></strong></td>
                         </tr>
+                        </tbody>
                     </table>
+                    <p style="margin: 15px 1px;">
+                    <strong> Reference:</strong> Buysse D.J, Reynold III C.F., Monk T.H., Berman S.R. and Kupfer D.J. (1988): The Pittsburgh
+Sleep Quality Index: A New Instrument for Psychiatric Practice and Research, Psychiatric Research 28,
+193-213.
+                    </p>
                 </div>
                 <div class="flex items-center flex-wrap mb-5">
                 <button type="button" class="btn btn-primary btn-sm m-1" onclick="printTable()">

@@ -14,6 +14,49 @@ $campResult = $camp->listForDashboard();
     </ul>
 
     <div class="pt-5">
+        <div class="mb-6 grid grid-cols-1 gap-6 text-white sm:grid-cols-2 xl:grid-cols-4">
+            <!-- Users Visit -->
+            <div class="panel bg-gradient-to-r from-cyan-500 to-cyan-400">
+                <div class="flex justify-between">
+                    <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Patients Screened</div>
+                </div>
+                <div class="mt-5 flex items-center">
+                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3"><?=count($patient->list())?></div>
+                </div>
+            </div>
+
+            <!-- Sessions -->
+            <div class="panel bg-gradient-to-r from-violet-500 to-violet-400">
+                <div class="flex justify-between">
+                    <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Doctors Participated</div>
+                    
+                </div>
+                <div class="mt-5 flex items-center">
+                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3"><?=count($camp->list())?></div>
+                </div>
+            </div>
+
+            <!-- Time On-Site -->
+            <div class="panel bg-gradient-to-r from-blue-500 to-blue-400">
+                <div class="flex justify-between">
+                    <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Patients with Hypertension with Insomnia</div>
+                    
+                </div>
+                <div class="mt-5 flex items-center">
+                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3"><?=count($patient->hyperTensionList())?></div>
+                </div>
+            </div>
+
+            <!-- Bounce Rate -->
+            <div class="panel bg-gradient-to-r from-fuchsia-500 to-fuchsia-400">
+                <div class="flex justify-between">
+                    <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Patients with Diabetes with Insomnia</div>
+                </div>
+                <div class="mt-5 flex items-center">
+                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3"><?=count($patient->diabetesList())?></div>
+                </div>
+            </div>
+        </div>
 
         <div class="grid lg:grid-cols-2 grid-cols-1 gap-6">
             <div class="panel h-full w-full">

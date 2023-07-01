@@ -1,5 +1,5 @@
 <div class="mb-8">
-    <label for="q-14">Q.No. 6- During the past month how often have you taken medicine (prescribed or “over the counter”) to help you sleep?</label>
+    <label for="q-14">Q6) During the past month how often have you taken medicine (prescribed or “over the counter”) to help you sleep?</label>
     <input type="hidden" name="question" value="6"/>
     <input type="hidden" name="score" value="<?=isset($oldAnswer['score'])?$oldAnswer['score']:"1"?>"/>
     <select id="q-14" name="answer" class="form-input" onchange="getScore(this)">

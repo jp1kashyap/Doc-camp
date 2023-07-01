@@ -1,5 +1,5 @@
 <div class="mb-8">
-    <label for="q-2">Q.No. 2- How long (in minutes) has it taken you to fall asleep each night?</label>
+    <label for="q-2">Q2) How long (in minutes) has it taken you to fall asleep each night?</label>
     <input type="hidden" name="question" value="2"/>
     <input type="hidden" name="score" value="<?=isset($oldAnswer['score'])?$oldAnswer['score']:"1"?>"/>
     <select id="q-2" name="answer" class="form-input" onchange="getScore(this)">

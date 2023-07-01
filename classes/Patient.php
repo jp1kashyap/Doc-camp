@@ -1,33 +1,49 @@
 <?php
 include_once 'DbConfig.php';
-
 class Patient extends DbConfig
 {
+	private $isAdmin = false;
 	public function __construct()
 	{
 		parent::__construct();
+		if(isset($_SESSION['role']) && $_SESSION['role']=='admin'){
+			$this->isAdmin = true;
+		}
 	}
     public function add()
 	{	
 		extract($_POST);
-		$query="INSERT INTO patients (name,age,sex,address,disease,other_disease,camp_id) VALUES(?,?,?,?,?,?,?)";
+		$mr_id=$this->isAdmin?null:$_SESSION['id'];
+		$query="INSERT INTO patients (name,age,sex,address,disease,other_disease,camp_id,mr_id) VALUES(?,?,?,?,?,?,?,?)";
 		$stmt = $this->connection->prepare($query);
-		$stmt->bind_param("sdssssd",$name,$age,$sex,$address,$disease,$other_disease,$camp_id);
+		$stmt->bind_param("sdssssds",$name,$age,$sex,$address,$disease,$other_disease,$camp_id,$mr_id);
 		$stmt->execute();
 		return $stmt->insert_id;
 	}
 
     public function list()
-	{	
-		$query="SELECT p.id as id,p.name as name,p.age as age,p.sex as sex,p.address as address,p.disease as disease,p.other_disease as other_disease,c.hospital as hospital FROM patients as p join camps as c on p.camp_id=c.id ORDER BY id DESC";
-		$stmt = $this->connection->prepare($query);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $rows=array();
-        while ($row = $result->fetch_assoc()) {
-            $rows[]=array($row['id'],$row['hospital'],$row['name'],$row['age'],$row['sex'],$row['address'],$row['disease'],$row['other_disease'],$row['id']);
-        }
-		return $rows;
+	{
+		try {
+			if ($this->isAdmin) {
+				$query = "SELECT p.id as id,p.name as name,p.age as age,p.sex as sex,p.address as address,p.disease as disease,p.other_disease as other_disease,c.hospital as hospital FROM patients as p join camps as c on p.camp_id=c.id ORDER BY id DESC";
+				$stmt = $this->connection->prepare($query);
+			}else{
+				$query = "SELECT p.id as id,p.name as name,p.age as age,p.sex as sex,p.address as address,p.disease as disease,p.other_disease as other_disease,c.hospital as hospital FROM patients as p join camps as c on p.camp_id=c.id where p.mr_id=? ORDER BY id DESC";
+				$stmt = $this->connection->prepare($query);
+				$mr_id = $_SESSION['id'];
+				$stmt->bind_param('s', $mr_id);
+			}
+			$stmt->execute();
+			$result = $stmt->get_result();
+			$rows = array();
+			while ($row = $result->fetch_assoc()) {
+				$rows[] = array($row['id'], $row['hospital'], $row['name'], $row['age'], $row['sex'], $row['address'], $row['disease'], $row['other_disease'], $row['id']);
+			}
+			return $rows;
+		}catch(Exception $e){
+			print_r($e);
+			return [];
+		}
 	}
 
 	public function doctorPatients($camp_id)
@@ -45,16 +61,28 @@ class Patient extends DbConfig
 	}
 
 	public function listForDashboard()
-	{	
-		$query="SELECT p.id as id,p.name as name,p.age as age,p.sex as sex,p.address as address,p.disease as disease,p.other_disease as other_disease,c.hospital as hospital FROM patients as p join camps as c on p.camp_id=c.id ORDER BY id DESC LIMIT 10";
-		$stmt = $this->connection->prepare($query);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $rows=array();
-        while ($row = $result->fetch_assoc()) {
-            $rows[]=$row;
-        }
-		return $rows;
+	{
+		try {
+			if ($this->isAdmin) {
+				$query = "SELECT p.id as id,p.name as name,p.age as age,p.sex as sex,p.address as address,p.disease as disease,p.other_disease as other_disease,c.hospital as hospital FROM patients as p join camps as c on p.camp_id=c.id ORDER BY id DESC LIMIT 10";
+				$stmt = $this->connection->prepare($query);
+			}else{
+				$query = "SELECT p.id as id,p.name as name,p.age as age,p.sex as sex,p.address as address,p.disease as disease,p.other_disease as other_disease,c.hospital as hospital FROM patients as p join camps as c on p.camp_id=c.id where p.mr_id=? ORDER BY id DESC LIMIT 10";
+				$stmt = $this->connection->prepare($query);
+				$mr_id = $_SESSION['id'];
+				$stmt->bind_param('s', $mr_id);
+			}
+			$stmt->execute();
+			$result = $stmt->get_result();
+			$rows = array();
+			while ($row = $result->fetch_assoc()) {
+				$rows[] = $row;
+			}
+			return $rows;
+		}catch(Exception $e){
+			print_r($e);
+			return [];
+		}
 	}
 
 	public function delete($id){
@@ -95,5 +123,53 @@ class Patient extends DbConfig
 		$stmt = $this->connection->prepare($query);
 		$stmt->bind_param("ssd",$score,$result,$id);
 		return $stmt->execute();
+	}
+
+	public function hyperTensionList(){
+		try {
+			if ($this->isAdmin) {
+				$query = "SELECT p.id as id,p.name as name,p.age as age,p.sex as sex,p.address as address,p.disease as disease,p.other_disease as other_disease,c.hospital as hospital FROM patients as p join camps as c on p.camp_id=c.id where p.disease='Hypertension' ORDER BY p.id DESC";
+				$stmt = $this->connection->prepare($query);
+			}else{
+				$query = "SELECT p.id as id,p.name as name,p.age as age,p.sex as sex,p.address as address,p.disease as disease,p.other_disease as other_disease,c.hospital as hospital FROM patients as p join camps as c on p.camp_id=c.id where p.disease='Hypertension' and p.mr_id=? ORDER BY p.id DESC";
+				$stmt = $this->connection->prepare($query);
+				$mr_id = $_SESSION['id'];
+				$stmt->bind_param('s', $mr_id);
+			}
+			$stmt->execute();
+			$result = $stmt->get_result();
+			$rows = array();
+			while ($row = $result->fetch_assoc()) {
+				$rows[] = array($row['id'], $row['hospital'], $row['name'], $row['age'], $row['sex'], $row['address'], $row['disease'], $row['other_disease'], $row['id']);
+			}
+			return $rows;
+		}catch(Exception $e){
+			print_r($e);
+			return [];
+		}
+	}
+
+	public function diabetesList(){
+		try {
+			if ($this->isAdmin) {
+				$query = "SELECT p.id as id,p.name as name,p.age as age,p.sex as sex,p.address as address,p.disease as disease,p.other_disease as other_disease,c.hospital as hospital FROM patients as p join camps as c on p.camp_id=c.id where p.disease='Diabetes' ORDER BY p.id DESC";
+				$stmt = $this->connection->prepare($query);
+			}else{
+				$query = "SELECT p.id as id,p.name as name,p.age as age,p.sex as sex,p.address as address,p.disease as disease,p.other_disease as other_disease,c.hospital as hospital FROM patients as p join camps as c on p.camp_id=c.id where p.disease='Diabetes' and p.mr_id=? ORDER BY p.id DESC";
+				$stmt = $this->connection->prepare($query);
+				$mr_id = $_SESSION['id'];
+				$stmt->bind_param('s', $mr_id);
+			}
+			$stmt->execute();
+			$result = $stmt->get_result();
+			$rows = array();
+			while ($row = $result->fetch_assoc()) {
+				$rows[] = array($row['id'], $row['hospital'], $row['name'], $row['age'], $row['sex'], $row['address'], $row['disease'], $row['other_disease'], $row['id']);
+			}
+			return $rows;
+		}catch(Exception $e){
+			print_r($e);
+			return [];
+		}
 	}
 }
