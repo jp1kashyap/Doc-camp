@@ -158,7 +158,7 @@
                 </li>
                 <h2 class="py-3 px-7 flex items-center uppercase font-extrabold bg-white-light/30 dark:bg-dark dark:bg-opacity-[0.08] -mx-4 mb-1">
 
-                    <a href="<?= BASE_URL ?>mr/export.php" target="_blank" class="group">
+                    <a href="<?= BASE_URL ?>mr/reports.php" target="_blank" class="group">
                         <div class="flex items-center">
 
                             <svg class="group-hover:!text-primary" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

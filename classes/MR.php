@@ -116,14 +116,18 @@ class MR extends DbConfig
         $stmt->execute();
         $result = $stmt->get_result();
         $mrArray=array();
+		$date=isset($_REQUEST['export'])?$_REQUEST['export']:date('m,Y');
+		$dates=explode(',',$date);
+		 $month = $dates[0];
+		 $year = $dates[1];
         while ($row = $result->fetch_assoc()) {
 			$newRow=array($row['name'],$row['reporting']);
 
 			// query doctor count
-			$queryDoctor = "SELECT count(id) as countDoctor FROM camps where mr_id=? AND MONTH(created_at) = MONTH(CURRENT_DATE())
-			AND YEAR(created_at) = YEAR(CURRENT_DATE())";
+			$queryDoctor = "SELECT count(id) as countDoctor FROM camps where mr_id=? AND MONTH(created_at) = ?
+			AND YEAR(created_at) = ?";
 			$stmtDoctor = $this->connection->prepare($queryDoctor);
-			$stmtDoctor->bind_param('s',$row['id']);
+			$stmtDoctor->bind_param('sdd',$row['id'],$month,$year);
 			$stmtDoctor->execute();
 			$stmtDoctor->bind_result($countDoctor);
 			$stmtDoctor->fetch();
@@ -131,10 +135,10 @@ class MR extends DbConfig
 			$stmtDoctor->close();
 
 			// query patient count
-			$queryPatient = "SELECT count(id) as countPatient FROM patients where mr_id=? AND MONTH(created_at) = MONTH(CURRENT_DATE())
-			AND YEAR(created_at) = YEAR(CURRENT_DATE())";
+			$queryPatient = "SELECT count(id) as countPatient FROM patients where mr_id=? AND MONTH(created_at) = ?
+			AND YEAR(created_at) = ?";
 			$stmtPatient = $this->connection->prepare($queryPatient);
-			$stmtPatient->bind_param('s',$row['id']);
+			$stmtPatient->bind_param('sdd',$row['id'],$month,$year);
 			$stmtPatient->execute();
 			$stmtPatient->bind_result($countPatient);
 			$stmtPatient->fetch();
