@@ -106,10 +106,10 @@ class Camp extends DbConfig
 	public function doctorList(){
 		try {
 			if ($this->isAdmin) {
-				$query = "SELECT c.id,c.doctor,c.doctor_code,c.hospital,c.location,c.date,count(p.id) as totalPatient  FROM camps as c join patients as p on p.camp_id=c.id group by c.id ORDER BY c.id DESC";
+				$query = "SELECT c.id,c.doctor,c.doctor_code,c.hospital,c.location,c.date,count(p.id) as totalPatient  FROM camps as c left join patients as p on p.camp_id=c.id group by c.id ORDER BY c.id DESC";
 				$stmt = $this->connection->prepare($query);
 			} else {
-				$query = "SELECT c.id,c.doctor,c.doctor_code,c.hospital,c.location,c.date,count(p.id) as totalPatient  FROM camps as c join patients as p on p.camp_id=c.id where c.mr_id=? group by c.id  ORDER BY c.id DESC";
+				$query = "SELECT c.id,c.doctor,c.doctor_code,c.hospital,c.location,c.date,count(p.id) as totalPatient  FROM camps as c left join patients as p on p.camp_id=c.id where c.mr_id=? group by c.id  ORDER BY c.id DESC";
 				$stmt = $this->connection->prepare($query);
 				$mr_id = $_SESSION['id'];
 				$stmt->bind_param('s', $mr_id);

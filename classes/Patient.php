@@ -23,26 +23,32 @@ class Patient extends DbConfig
 
     public function list()
 	{
-		try {
-			if ($this->isAdmin) {
-				$query = "SELECT p.id as id,p.name as name,p.age as age,p.sex as sex,p.address as address,p.disease as disease,p.other_disease as other_disease,c.hospital as hospital FROM patients as p join camps as c on p.camp_id=c.id ORDER BY id DESC";
-				$stmt = $this->connection->prepare($query);
-			}else{
-				$query = "SELECT p.id as id,p.name as name,p.age as age,p.sex as sex,p.address as address,p.disease as disease,p.other_disease as other_disease,c.hospital as hospital FROM patients as p join camps as c on p.camp_id=c.id where p.mr_id=? ORDER BY id DESC";
-				$stmt = $this->connection->prepare($query);
-				$mr_id = $_SESSION['id'];
-				$stmt->bind_param('s', $mr_id);
+		if(isset($_REQUEST['disease']) && $_REQUEST['disease']=='Diabetes'){
+			return $this->diabetesList();
+		}else if(isset($_REQUEST['disease']) && $_REQUEST['disease']=='Hypertension'){
+			return $this->hyperTensionList();
+		} else {
+			try {
+				if ($this->isAdmin) {
+					$query = "SELECT p.id as id,p.name as name,p.age as age,p.sex as sex,p.address as address,p.disease as disease,p.other_disease as other_disease,c.hospital as hospital FROM patients as p join camps as c on p.camp_id=c.id ORDER BY id DESC";
+					$stmt = $this->connection->prepare($query);
+				} else {
+					$query = "SELECT p.id as id,p.name as name,p.age as age,p.sex as sex,p.address as address,p.disease as disease,p.other_disease as other_disease,c.hospital as hospital FROM patients as p join camps as c on p.camp_id=c.id where p.mr_id=? ORDER BY id DESC";
+					$stmt = $this->connection->prepare($query);
+					$mr_id = $_SESSION['id'];
+					$stmt->bind_param('s', $mr_id);
+				}
+				$stmt->execute();
+				$result = $stmt->get_result();
+				$rows = array();
+				while ($row = $result->fetch_assoc()) {
+					$rows[] = array($row['id'], $row['hospital'], $row['name'], $row['age'], $row['sex'], $row['address'], $row['disease'], $row['other_disease'], $row['id']);
+				}
+				return $rows;
+			} catch (Exception $e) {
+				print_r($e);
+				return [];
 			}
-			$stmt->execute();
-			$result = $stmt->get_result();
-			$rows = array();
-			while ($row = $result->fetch_assoc()) {
-				$rows[] = array($row['id'], $row['hospital'], $row['name'], $row['age'], $row['sex'], $row['address'], $row['disease'], $row['other_disease'], $row['id']);
-			}
-			return $rows;
-		}catch(Exception $e){
-			print_r($e);
-			return [];
 		}
 	}
 

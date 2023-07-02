@@ -23,6 +23,9 @@ $campResult = $camp->listForDashboard();
                 <div class="mt-5 flex items-center">
                     <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3"><?=count($patient->list())?></div>
                 </div>
+                <div class="mt-5 flex items-center" >
+                    <a href="<?=BASE_URL?>patient/list.php" class="btn btn-danger">View Now</a>
+                </div>
             </div>
 
             <!-- Sessions -->
@@ -33,6 +36,9 @@ $campResult = $camp->listForDashboard();
                 </div>
                 <div class="mt-5 flex items-center">
                     <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3"><?=count($camp->list())?></div>
+                </div>
+                <div class="mt-5 flex items-center" >
+                    <a href="<?=BASE_URL?>doctor/list.php" class="btn btn-warning">View Now</a>
                 </div>
             </div>
 
@@ -45,6 +51,9 @@ $campResult = $camp->listForDashboard();
                 <div class="mt-5 flex items-center">
                     <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3"><?=count($patient->hyperTensionList())?></div>
                 </div>
+                <div class="mt-5 flex items-center" >
+                    <a href="<?=BASE_URL?>patient/list.php?disease=Hypertension" class="btn btn-success">View Now</a>
+                </div>
             </div>
 
             <!-- Bounce Rate -->
@@ -54,6 +63,9 @@ $campResult = $camp->listForDashboard();
                 </div>
                 <div class="mt-5 flex items-center">
                     <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3"><?=count($patient->diabetesList())?></div>
+                </div>
+                <div class="mt-5 flex items-center" >
+                    <a href="<?=BASE_URL?>patient/list.php?disease=Diabetes" class="btn btn-primary">View Now</a>
                 </div>
             </div>
         </div>

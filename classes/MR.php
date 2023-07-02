@@ -110,6 +110,41 @@ class MR extends DbConfig
 		return $stmt->execute();
 	}
 
+	public function exportData(){
+		$query="SELECT id,name,reporting FROM mr ORDER BY id DESC";
+		$stmt = $this->connection->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $mrArray=array();
+        while ($row = $result->fetch_assoc()) {
+			$newRow=array($row['name'],$row['reporting']);
+
+			// query doctor count
+			$queryDoctor = "SELECT count(id) as countDoctor FROM camps where mr_id=? AND MONTH(created_at) = MONTH(CURRENT_DATE())
+			AND YEAR(created_at) = YEAR(CURRENT_DATE())";
+			$stmtDoctor = $this->connection->prepare($queryDoctor);
+			$stmtDoctor->bind_param('s',$row['id']);
+			$stmtDoctor->execute();
+			$stmtDoctor->bind_result($countDoctor);
+			$stmtDoctor->fetch();
+			$newRow['doctors'] = $countDoctor;
+			$stmtDoctor->close();
+
+			// query patient count
+			$queryPatient = "SELECT count(id) as countPatient FROM patients where mr_id=? AND MONTH(created_at) = MONTH(CURRENT_DATE())
+			AND YEAR(created_at) = YEAR(CURRENT_DATE())";
+			$stmtPatient = $this->connection->prepare($queryPatient);
+			$stmtPatient->bind_param('s',$row['id']);
+			$stmtPatient->execute();
+			$stmtPatient->bind_result($countPatient);
+			$stmtPatient->fetch();
+			$newRow['patients'] = $countPatient;
+
+            $mrArray[]=$newRow;
+        }
+		return $mrArray;
+	}
+
 
 
 }
