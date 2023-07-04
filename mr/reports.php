@@ -41,7 +41,7 @@ $list=$reports->list();
                             sortable:false,
                             render: (data, cell, row) => {
                                 return `<div class="flex items-center">
-                                            <a href="<?=BASE_URL?>mr/export.php?export=${data}" class="ltr:mr-2 rtl:ml-2 btn btn-success">
+                                            <a href="<?=BASE_URL?>mr/export.php?export=${data}" target="_blank" class="ltr:mr-2 rtl:ml-2 btn btn-success">
                                                 Export Report
                                             </a>
                                         </div>`;

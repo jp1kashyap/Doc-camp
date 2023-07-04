@@ -3,7 +3,8 @@ include '../classes/MR.php';
 $mr=new MR();
 if (isset($_REQUEST['export']) && $_REQUEST['export']) {
     $report = $mr->exportData();
-    $filename = "report-" . date('m-Y');
+    $reportname=str_replace(',','-',$_REQUEST['export']);
+    $filename = "report-" .$reportname;
     $file_ending = "xls";
     $dates=explode(',',$_REQUEST['export']);
     //define separator (defines columns in excel & tabs in word)
@@ -14,18 +15,19 @@ if (isset($_REQUEST['export']) && $_REQUEST['export']) {
         'Month',
         $monthName
     ];
-    echo implode($sep, array_values($monthHeading)) . "\r\n";
+    header("Content-Type: text/csv");
+    header("Content-Disposition: attach; filename=".$filename.".csv");
+    $h = fopen("php://output", "w");
+    fputcsv($h, $monthHeading);
     // year heading
-
     $yearHeading = [
         'Year', $dates[1]
     ];
-    echo implode($sep, array_values($yearHeading)) . "\r\n\r\n\r\n";
+    fputcsv($h, $yearHeading);
+    fputcsv($h, []);
+    fputcsv($h, []);
     //header info for browser
-    header("Content-Type: application/xls");
-    header("Content-Disposition: attachment; filename=$filename.xls");
-    header("Pragma: no-cache");
-    header("Expires: 0");
+   
 
     
 //start of printing column names as names of MySQL fields
@@ -35,10 +37,11 @@ if (isset($_REQUEST['export']) && $_REQUEST['export']) {
         'No of Drs Participated',
         'No of Patients Screened'
     ];
-    echo implode($sep, array_values($columns)) . "\r\n";
+    fputcsv($h, $columns);
     foreach ($report as $row) {
-        echo implode($sep, array_values($row)) . "\r\n";
+        fputcsv($h, $row);
     }
+    fclose($h);
 }else{
     return false;
 }
