@@ -45,7 +45,7 @@ $campResult = $camp->listForDashboard();
             <!-- Time On-Site -->
             <div class="panel bg-gradient-to-r from-blue-500 to-blue-400">
                 <div class="flex justify-between">
-                    <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Patients with Hypertension with Insomnia</div>
+                    <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Patients with Hypertension and Insomnia</div>
                     
                 </div>
                 <div class="mt-5 flex items-center">
@@ -59,7 +59,7 @@ $campResult = $camp->listForDashboard();
             <!-- Bounce Rate -->
             <div class="panel bg-gradient-to-r from-fuchsia-500 to-fuchsia-400">
                 <div class="flex justify-between">
-                    <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Patients with Diabetes with Insomnia</div>
+                    <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Patients with Diabetes and Insomnia</div>
                 </div>
                 <div class="mt-5 flex items-center">
                     <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3"><?=count($patient->diabetesList())?></div>
