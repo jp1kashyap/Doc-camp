@@ -18,24 +18,21 @@ if (isset($_REQUEST['export']) && $_REQUEST['export']) {
     header("Content-Type: text/csv");
     header("Content-Disposition: attach; filename=".$filename.".csv");
     $h = fopen("php://output", "w");
-    fputcsv($h, $monthHeading);
-    // year heading
-    $yearHeading = [
-        'Year', $dates[1]
-    ];
-    fputcsv($h, $yearHeading);
-    fputcsv($h, []);
-    fputcsv($h, []);
-    //header info for browser
-   
 
     
 //start of printing column names as names of MySQL fields
     $columns = [
-        'BE Name',
-        'HQ',
-        'No of Drs Participated',
-        'No of Patients Screened'
+        'Month',
+        'Name of BE',
+        'HQ Name',
+        'Camp Conducted',
+        'Date of Camp',
+        'Names of Drs',
+        'Speciality',
+        'Total No of Patients',
+        'Hypertension & Insomnia',
+        'Diabetes & Insomnia',
+        'Others with Insomnia'
     ];
     fputcsv($h, $columns);
     foreach ($report as $row) {
