@@ -139,12 +139,12 @@ class MR extends DbConfig
 					$newRow['date'] = $rowDoctor['date'];
 					$newRow['doctor'] = $rowDoctor['doctors'];
 					$newRow['speciality'] = $rowDoctor['speciality'];
-
+					$dateNumber = date('d', strtotime($rowDoctor['date']));
 					// query patient count
 					$queryPatient = "SELECT count(id) as countPatient FROM patients where mr_id=? AND MONTH(created_at) = ?
-			AND YEAR(created_at) = ?";
+			AND YEAR(created_at) = ? AND date_format(created_at,'%d')=?";
 					$stmtPatient = $this->connection->prepare($queryPatient);
-					$stmtPatient->bind_param('sdd', $row['id'], $month, $year);
+					$stmtPatient->bind_param('sddd', $row['id'], $month, $year,$dateNumber);
 					$stmtPatient->execute();
 					$stmtPatient->bind_result($countPatient);
 					$stmtPatient->fetch();
@@ -153,10 +153,10 @@ class MR extends DbConfig
 
 					//Hypertension patients
 					$queryPatient1 = "SELECT count(id) as hypertension FROM patients where mr_id=? AND MONTH(created_at) = ?
-			AND YEAR(created_at) = ? AND disease=?";
+			AND YEAR(created_at) = ? AND disease=? AND date_format(created_at,'%d')=?";
 					$stmtPatient1 = $this->connection->prepare($queryPatient1);
 					$disease = 'Hypertension';
-					$stmtPatient1->bind_param('sdds', $row['id'], $month, $year, $disease);
+					$stmtPatient1->bind_param('sddsd', $row['id'], $month, $year, $disease,$dateNumber);
 					$stmtPatient1->execute();
 					$stmtPatient1->bind_result($hypertension);
 					$stmtPatient1->fetch();
@@ -165,10 +165,10 @@ class MR extends DbConfig
 
 					//Diabetes patients
 					$queryPatient2 = "SELECT count(id) as diabetes FROM patients where mr_id=? AND MONTH(created_at) = ?
-			AND YEAR(created_at) = ? and disease=?";
+			AND YEAR(created_at) = ? and disease=? AND date_format(created_at,'%d')=?";
 					$stmtPatient2 = $this->connection->prepare($queryPatient2);
 					$disease = 'Diabetes';
-					$stmtPatient2->bind_param('sdds', $row['id'], $month, $year, $disease);
+					$stmtPatient2->bind_param('sddsd', $row['id'], $month, $year, $disease,$dateNumber);
 					$stmtPatient2->execute();
 					$stmtPatient2->bind_result($diabetes);
 					$stmtPatient2->fetch();
@@ -177,10 +177,10 @@ class MR extends DbConfig
 
 					//Other patients
 					$queryPatient3 = "SELECT count(id) as other FROM patients where mr_id=? AND MONTH(created_at) = ?
-			AND YEAR(created_at) = ? and disease=?";
+			AND YEAR(created_at) = ? and disease=? AND date_format(created_at,'%d')=?";
 					$stmtPatient3 = $this->connection->prepare($queryPatient3);
 					$disease = 'Other';
-					$stmtPatient3->bind_param('sdds', $row['id'], $month, $year, $disease);
+					$stmtPatient3->bind_param('sddsd', $row['id'], $month, $year, $disease,$dateNumber);
 					$stmtPatient3->execute();
 					$stmtPatient3->bind_result($other);
 					$stmtPatient3->fetch();

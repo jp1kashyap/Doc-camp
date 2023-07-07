@@ -30,11 +30,21 @@ if(isset($_SESSION['id'])){
     <script defer src="<?=BASE_URL?>assets/js/popper.min.js"></script>
     <script defer src="<?=BASE_URL?>assets/js/tippy-bundle.umd.min.js"></script>
     <script defer src="<?=BASE_URL?>assets/js/sweetalert.min.js"></script>
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W7MWSKH');</script>
+<!-- End Google Tag Manager -->
 </head>
 
 
 <body x-data="main" class="antialiased relative font-nunito text-sm font-normal overflow-x-hidden" :class="[ $store.app.sidebar ? 'toggle-sidebar' : '', $store.app.theme, $store.app.menu, $store.app.layout,$store.app.rtlClass]">
-
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W7MWSKH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
     <!-- screen loader -->
     <div class="screen_loader fixed inset-0 bg-[#fafafa] dark:bg-[#060818] z-[60] grid place-content-center animate__animated">
         <svg width="64" height="64" viewBox="0 0 135 135" xmlns="http://www.w3.org/2000/svg" fill="#4361ee">
