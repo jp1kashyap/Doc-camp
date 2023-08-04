@@ -38,7 +38,7 @@ if(isset($_POST['add'])){
         <div class="grid grid-cols-1 gap-6 pt-8 lg:grid-cols-2 center-form">
             <div class="panel">
                 <div class="flex items-center justify-between mb-5">
-                    <h5 class="font-semibold text-lg dark:text-white-light">Add Camp</h5>
+                    <h5 class="font-semibold text-lg dark:text-white-light">Register Dr/Clinic/Hospital</h5>
                 </div>
                 <div class="mb-8">
                     <form method="post" action="">

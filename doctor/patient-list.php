@@ -68,7 +68,7 @@ $doctor = $camp->edit($camp_id);
             init() {
                 this.datatable = new simpleDatatables.DataTable('#myTable', {
                     data: {
-                        headings: ['Patient Name','Hospital','Age','Sex','Date','PSQI Score','PSQI Result'],
+                        headings: ['Patient Name','Hospital','Age','Sex','Date','Disease','PSQI Score','PSQI Result'],
                         data: <?=json_encode($list)?>
                     },
                     perPage: 10,
@@ -140,6 +140,7 @@ $doctor = $camp->edit($camp_id);
                     {
                         padding: 5px;
                         border: 1px solid #ccc;
+                        text-align:center;
                     }
                     label, .dataTable-wrapper{padding: 10px;}
                     .dataTable-top, .dataTable-bottom{display:none;}

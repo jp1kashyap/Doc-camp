@@ -49,9 +49,9 @@ $camps = $camp->list();
                 <div class="mb-8">
                     <form method="post" action="">
                     <div>
-                        <label for="camp">Camp</label>
+                        <label for="camp">Dr/Clinic/Hospital</label>
                         <select name="camp_id" class="form-input">
-                            <option value="">--Select--</option>
+                            <option value="">--Date--</option>
                             <?php foreach ($camps as $camp) { ?>
                             <option value="<?=$camp[0]?>" <?= isset($_POST['camp_id']) && !$success && $_POST['camp_id'] == $camp[0] ? 'selected' : '' ?>><?=$camp[1]?></option>
                             <?php } ?>
@@ -79,7 +79,7 @@ $camps = $camp->list();
                     </div>
                     <div>
                         <label for="address">Address</label>
-                        <textarea name="address" id="address" class="form-textarea" rows="4" placeholder="Enter Patient Address"><?=isset($_POST['address']) && !$success?$_POST['address']:''?></textarea>
+                        <textarea name="address" id="address" class="form-textarea" rows="4" placeholder="Enter Patient City/Area/Location"><?=isset($_POST['address']) && !$success?$_POST['address']:''?></textarea>
                         <?php if(isset($errors['address'])){?><label class="text-danger"><?=$errors['address'][0]?></label><?php } ?>
                     </div>
                     <div>
